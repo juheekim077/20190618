@@ -11,7 +11,7 @@ public class DBTests {
 	public void testConnettion() throws Exception{
 		
 		String driver = "com.mysql.cj.jdbc.Driver";  
-		String url = "jdbc:mysql://192.168.41.42:3306/book_ex?useSSL=false&serverTimezone=Asia/Seoul";
+		String url = "jdbc:mysql://192.168.41.53:3306/book_ex?useSSL=false&serverTimezone=Asia/Seoul";
 
 		Class.forName(driver);
 		
