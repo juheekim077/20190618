@@ -1,6 +1,7 @@
 package org.zerock.domain;
 
-import lombok.Data;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import lombok.Getter;
 import lombok.ToString;
 
@@ -36,5 +37,15 @@ public class PageMaker {
 		}
 		next = tempTotal < totalCount;
 		
+	}
+	
+	public String getLink(String path, int pageNum) {
+		
+		UriComponentsBuilder builder = 
+				UriComponentsBuilder.fromPath(path)
+				.queryParam("page", pageNum)
+				.queryParam("amount", cri.getAmount());
+		
+		return builder.toUriString();
 	}
 }

@@ -28,6 +28,8 @@ public class BoardMapperTests {
 				
 		log.info(pm);
 		
+		log.info(pm.getLink("/board/list", 3));
+		
 	}
 	
 	

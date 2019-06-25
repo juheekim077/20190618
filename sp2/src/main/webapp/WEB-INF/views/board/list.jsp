@@ -15,6 +15,11 @@
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+              <select class="opt">
+              	<option value="10" ${pm.cri.amount == 10? "selected":"" }>10</option>
+              	<option value="20" ${pm.cri.amount == 20? "selected":"" }>20</option>
+              	<option value="50" ${pm.cri.amount == 50? "selected":"" }>50</option>
+              </select>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -29,22 +34,29 @@
 			   <c:forEach items="${list}" var="vo">
 			   <tr>
 			     <td><c:out value="${vo.bno}"/></td>
-			     <td><a href="/board/read?bno=${vo.bno }" >${vo.title }</a>
-			     </td>
+			     <td><a href='${pm.getLink("/board/read",pm.current)}&bno=${vo.bno}'>${vo.title}</a></td>
 			     <td><c:out value="${vo.writer}"/></td>
 			     <td><c:out value="${vo.regdate}"/></td>
 			   </tr>
 			   </c:forEach>
 			 </table>
+			
+			 
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  	<c:if test="${pm.prev}">
+    <li class="page-item"><a class="page-link" href='${pm.getLink("/board/list",pm.getStart()-1)}'>Previous</a></li>
+    </c:if>
+    
+    
+    <c:forEach begin="${pm.start}" end="${pm.end}" var="idx">
+    <li class="page-item"><a class="page-link" href='${pm.getLink("/board/list",idx)}'>${idx}</a></li>
+	</c:forEach>
+	
+    <c:if test="${pm.next}">
+    <li class="page-item"><a class="page-link" href='${pm.getLink("/board/list",pm.getEnd()+1)}'>Next</a></li>
+    </c:if>
   </ul>
-              </div>
+            </div>
           </div>  
           
 
@@ -61,17 +73,20 @@
  }
  
  
- </script>
-
-
-         
-<%@include file="../includes/footer.jsp" %>
-
-
-
-
+ $('.opt').on("change", function(e){
+	
+	 var amountValue = this.value;
+	 
+	 self.location="/board/list?page=1&amount="+amountValue;
+	 
+ });
+ 
 
  
+ </script>
+
+      
+<%@include file="../includes/footer.jsp" %>
  
 </body>
 </html>
